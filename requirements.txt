@@ -1,0 +1,16 @@
+async-timeout==4.0.2
+click==8.1.3
+Deprecated==1.2.13
+gevent==21.12.0
+greenlet==1.1.3
+greenswitch==0.0.14
+Jaspion==0.3.7.1
+packaging==21.3
+pymongo==4.2.0
+pyparsing==3.0.9
+redis==4.3.4
+six==1.16.0
+websockets==10.3
+wrapt==1.14.1
+zope.event==4.5.0
+zope.interface==5.4.0
