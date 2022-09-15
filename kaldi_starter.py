@@ -20,11 +20,11 @@ logger = logging.getLogger(__name__)
 def start_kaldi(server, input, output, controlChannel, speaker, language):
     if language == 'German':
         model = 'kaldi_tuda_de_nnet3_chain2.yaml'
-        kaldiDir = '. path.sh && kms_env/bin/python3 nnet3_model.py -m 0 -e -t -y models/%s --redis-server=%s --redis-audio=%s --redis-channel=%s --redis-control=%s -s="%s" -fpc 190' % (model, server, input, output, controlChannel, speaker)
+        kaldiDir = 'source kms_env/bin/activate && . path.sh && python nnet3_model.py -m 0 -e -t -y models/%s --redis-server=%s --redis-audio=%s --redis-channel=%s --redis-control=%s -s="%s" -fpc 190' % (model, server, input, output, controlChannel, speaker)
     else:
         onlineConf = 'en_160k_nnet3chain_tdnn1f_2048_sp_bi/conf/online.conf'
         model = 'en_160k_nnet3chain_tdnn1f_2048_sp_bi.yaml'
-        kaldiDir = '. path.sh && kms_env/bin/python3 nnet3_model.py -m 0 -e -t -o models/%s -y models/%s --redis-server=%s --redis-audio=%s --redis-channel=%s --redis-control=%s -s="%s" -fpc 190' % (onlineConf, model, server, input, output, controlChannel, speaker)
+        kaldiDir = 'source kms_env/bin/activate && . path.sh && python nnet3_model.py -m 0 -e -t -o models/%s -y models/%s --redis-server=%s --redis-audio=%s --redis-channel=%s --redis-control=%s -s="%s" -fpc 190' % (onlineConf, model, server, input, output, controlChannel, speaker)
     chDir = './kaldi-model-server'
     os.chdir(chDir)
     os.system(kaldiDir)
