@@ -20,14 +20,11 @@ logger = logging.getLogger(__name__)
 def start_kaldi(server, input, output, controlChannel, speaker, language):
     if language == 'German':
         model = 'kaldi_tuda_de_nnet3_chain2.yaml'
-        kaldiDir = f'docker exec kamose asr -m 0 -e -t -y models/{model} --redis-server={server} --redis-audio={input} --redis-channel={output} --redis-control={controlChannel} -s="{speaker}" -fpc 190'
+        kaldiDir = f'docker exec kamose asr -m 0 -e -t -y ./models/{model} --redis-server={server} --redis-audio={input} --redis-channel={output} --redis-control={controlChannel} -s="{speaker}" -fpc 190'
     else:
         onlineConf = 'en_160k_nnet3chain_tdnn1f_2048_sp_bi/conf/online.conf'
         model = 'en_160k_nnet3chain_tdnn1f_2048_sp_bi.yaml'
         kaldiDir = 'docker exec kamose asr -m 0 -e -t -o models/%s -y models/%s --redis-server=%s --redis-audio=%s --redis-channel=%s --redis-control=%s -s="%s" -fpc 190' % (onlineConf, model, server, input, output, controlChannel, speaker)
-    chDir = './kaldi-model-server'
-    os.chdir(chDir)
-    print(os.getcwd())
     os.system(kaldiDir)
 
 
