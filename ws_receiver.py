@@ -101,7 +101,7 @@ mti = Thread(target=maintain_isTalking)
 mti.deamon = True
 mti.start()
 
-start_server = websockets.server(socket_to_redis, 'localhost', port)
+start_server = websockets.serve(socket_to_redis, 'localhost', port)
 
 asyncio.get_event_loop().run_until_complete(start_server)
 logger.info('Websocket Server started on Port ' + port)
