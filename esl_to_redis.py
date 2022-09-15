@@ -3,16 +3,19 @@ from jaspion.utils import filtrate
 import redis
 import json
 import logging
-import argparse
+import os
+from dotenv import load_dotenv
 from urllib import parse
 
-server = 'YOUR BBB SERVER'
+load_dotenv()
+
+server = 'localhost'
 ws_port = '3001'
 asr_channel = 'asr_channel'
 
 # TODO: Add parameter to both
-app = Jaspion(host='127.0.0.1', port=8021, password='YOUR FREESWITCH PASSWORD')
-red = redis.Redis(host=server, port=6379, password='')
+app = Jaspion(host='127.0.0.1', port=8021, password=os.getenv("FREESWITCH_PASSWORD"))
+red = redis.Redis(host=server, port=6379, password=os.getenv("REDIS_PASSWORD"))
 
 logging.basicConfig()
 logger = logging.getLogger('ESL-Bridge')

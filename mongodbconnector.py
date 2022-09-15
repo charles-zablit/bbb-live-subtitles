@@ -3,8 +3,8 @@ import time
 import redis
 import json
 import logging
-import argparse
 from py_etherpad import EtherpadLiteClient
+
 
 # import argparse
 from urllib import parse
@@ -267,12 +267,9 @@ class mongodbconnector:
 
 
 if __name__ == '__main__':
-    # Argument Parser
-    parser = argparse.ArgumentParser()
+    from dotenv import load_dotenv
+    import os
 
-    # # flag (- and --) arguments
-    parser.add_argument('-s', '--server', help='REDIS Pubsub Server hostname or IP', default='localhost')
-    parser.add_argument('-c', '--channel', help='The Pubsub Information Channel', default='asr_channel')
-    parser.add_argument('-e', '--etherpadKey', help='etherpad API Key', required=True)
-    args = parser.parse_args()
-    mongo = mongodbconnector(etherpadKey=args.etherpadKey, asrChannel=args.channel, redisHost=args.server)
+    load_dotenv()
+
+    mongo = mongodbconnector(etherpadKey=os.getenv("ETHERPAD_KEY"), asrChannel="asr_channel", redisHost=os.getenv("REDIS_HOST"))

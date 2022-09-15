@@ -1,3 +1,4 @@
 .vscode
 bbb_env/
 env/
+.env
