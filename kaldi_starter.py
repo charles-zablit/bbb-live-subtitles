@@ -3,8 +3,11 @@ import redis
 import json
 import multiprocessing as mp
 import time
-import argparse
 import logging
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logging.basicConfig(
     level=logging.INFO,
@@ -28,7 +31,7 @@ def start_kaldi(server, input, output, controlChannel, speaker, language):
 
 
 def wait_for_channel(server, port, channel):
-    red = redis.Redis(host=server, port=port, password='')
+    red = redis.Redis(host=server, port=port, password=os.getenv("REDIS_PASSWORD"))
     pubsub = red.pubsub(ignore_subscribe_messages=True)
     pubsub.subscribe(channel)
 
@@ -88,16 +91,4 @@ def redis_channel_message(red, channel, Event, callerDestinationNumber, origCall
 
 
 if __name__ == '__main__':
-    # Argument parser
-    parser = argparse.ArgumentParser()
-
-    # flag (- and --) arguments
-    parser.add_argument('-s', '--server', help='REDIS Pubsub Server hostname or IP')
-    parser.add_argument('-p', '--port', help='REDIS Pubsub Port', default='6379')
-    parser.add_argument('-c', '--channel', help='The Pubsub Information Channel')
-    args = parser.parse_args()
-    server = args.server
-    port = args.port
-    channel = args.channel
-
-    wait_for_channel(server, port, channel)
+    wait_for_channel("localhost", 6379, "asr_channel")
