@@ -27,6 +27,7 @@ def start_kaldi(server, input, output, controlChannel, speaker, language):
         kaldiDir = '. path.sh && python nnet3_model.py -m 0 -e -t -o models/%s -y models/%s --redis-server=%s --redis-audio=%s --redis-channel=%s --redis-control=%s -s="%s" -fpc 190' % (onlineConf, model, server, input, output, controlChannel, speaker)
     chDir = './kaldi-model-server'
     os.chdir(chDir)
+    print(os.getcwd())
     os.system(kaldiDir)
 
 
