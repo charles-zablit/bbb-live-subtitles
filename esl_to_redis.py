@@ -17,7 +17,7 @@ asr_channel = 'asr_channel'
 app = Jaspion(host='127.0.0.1', port=8021, password=os.getenv("FREESWITCH_PASSWORD"))
 red = redis.Redis(host=server, port=6379, password=os.getenv("REDIS_PASSWORD"))
 
-logger = logging.basicConfig(
+logging.basicConfig(
     filename="esl_to_redis.log",
     level=logging.DEBUG,
     format='%(asctime)s %(levelname)s %(message)s',
@@ -28,8 +28,8 @@ logger = logging.basicConfig(
 @app.handle('conference::maintenance')
 @filtrate('Action', 'add-member')
 def add_member(event):
-    logger.info('add-member')
-    # logger.debug(event)
+    logging.info('add-member')
+    # logging.debug(event)
     uuid = event['Unique-ID']
     Event = 'add-member'
     callerDestinationNumber = event['Caller-Destination-Number'].replace('echo', '')
@@ -60,8 +60,8 @@ def add_member(event):
 
 @app.handle('mod_audio_fork::connect')
 def mod_audio_fork_connect(event):
-    logger.info('mod_audio_fork::connect')
-    # logger.debug(event)
+    logging.info('mod_audio_fork::connect')
+    # logging.debug(event)
     # uuid = event['Unique-ID']
     Event = 'mod_audio_fork::connect'
     callerDestinationNumber = event['Caller-Destination-Number'].replace('echo', '')
@@ -86,8 +86,8 @@ def del_member(event):
 # TODO:Add Heartbeat to check if the connection is lost
 
 def send_to_pubsub(data):
-    logger.debug('Redis Message to ' + asr_channel + ' :')
-    logger.debug(data)
+    logging.debug('Redis Message to ' + asr_channel + ' :')
+    logging.debug(data)
     data = json.dumps(data)
     red.publish(asr_channel, data)
 
