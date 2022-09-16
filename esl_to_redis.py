@@ -89,7 +89,7 @@ def send_to_pubsub(data):
     logging.debug('Redis Message to ' + asr_channel + ' :')
     logging.debug(data)
     data = json.dumps(data)
-    red.publish(asr_channel, data)
+    logging.debug(red.publish(asr_channel, data))
 
 
 if __name__ == '__main__':
