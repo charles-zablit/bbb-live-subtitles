@@ -25,7 +25,7 @@ logger = logging.getLogger(__name__)
 red = redis.Redis(host='localhost', port=6379, password=os.getenv("REDIS_PASSWORD"))
 
 wasTalking = dict() # This is to send some more data chunks to help kaldi finalize the last utterance
-async def socket_to_redis(websocket):
+async def socket_to_redis(websocket, path):
     print("TEST", "*"*40)
     path = parse.unquote(path[1:])
     logger.info('Websocket Connection established')
