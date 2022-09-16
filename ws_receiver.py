@@ -100,15 +100,13 @@ def maintain_isTalking(): # The idea is to only send data into the database whil
         time.sleep(0.1)
 
 print("*"*80)
-print("MTI Starting")
 mti = Thread(target=maintain_isTalking)
 mti.deamon = True
 mti.start()
-print("MTI Started")
-print("*"*80)
 print("Server Starting")
 start_server = websockets.serve(socket_to_redis, 'localhost', port)
 print("Server Started")
 asyncio.get_event_loop().run_until_complete(start_server)
+print('Server is really started on ' + port)
 logger.info('Websocket Server started on Port ' + port)
 asyncio.get_event_loop().run_forever()
