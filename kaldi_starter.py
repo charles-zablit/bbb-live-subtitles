@@ -39,7 +39,7 @@ def wait_for_channel(server, port, channel):
         try:
             if message:
                 message = json.loads(message['data'].decode('UTF-8'))
-                print(json.dumps(message, indent=2))
+                logging.info(json.dumps(message, indent=2))
                 callerUsername = message['Caller-Username']
                 language = message['Language']
                 audioChannel = message['Audio-Channel']
@@ -48,7 +48,7 @@ def wait_for_channel(server, port, channel):
                 callerDestinationNumber = message['Caller-Destination-Number']
                 origCallerIDName = message['Caller-Orig-Caller-ID-Name']
                 if message['Event'] == 'LOADER_START':
-                    print('Start Kaldi')
+                    logging.info('Start Kaldi')
                     p = mp.Process(target=start_kaldi, args=(server, audioChannel, textChannel, controlChannel, callerUsername, language))
                     p.start()
                     # kaldiInstances[audioChannel] = p
@@ -62,7 +62,7 @@ def wait_for_channel(server, port, channel):
                     redis_channel_message(red, channel, 'KALDI_STOP', callerDestinationNumber, origCallerIDName, callerUsername, language, audioChannel, textChannel, controlChannel)
                 
         except Exception as e:
-            print(e)
+            logging.info(e)
             pass
 
 

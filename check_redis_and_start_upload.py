@@ -6,6 +6,7 @@ import time
 import logging
 
 logging.basicConfig(
+    filename="check_redis.log",
     level=logging.DEBUG,
     format='%(asctime)s %(levelname)s %(message)s',
     datefmt='%Y-%m-%d %H:%M:%S',
@@ -42,7 +43,7 @@ def handle_loader():
                         p = mp.Process(target=send_file_to_redis, args=(mediaBugTarget, redisChannel,))
                         p.start()
                         loader[mediaBugTarget] = p
-                        print("*"*80)
+                        logging.info("*"*80)
                         loaderStartMsg = {
                                           "Event": "LOADER_START",
                                           "Caller-Destination-Number": callerDestinationNumber,
