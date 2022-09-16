@@ -45,6 +45,7 @@ async def socket_to_redis(websocket, path):
     audioChannel = parse.quote(callerDestinationNumber + '~' + origCallerIDName) + '~audio'
     controlChannel = parse.quote(callerDestinationNumber + '~' + origCallerIDName) + '~control'
     textChannel = parse.quote(callerDestinationNumber + '~' + origCallerIDName) + '~text'
+    print("STARTING LOADER")
     redis_message('LOADER_START', callerDestinationNumber, origCallerIDName, callerUsername, language, audioChannel, controlChannel, textChannel)
     wasTalkingChunks = 0 
     async for message in websocket:
