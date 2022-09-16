@@ -42,6 +42,7 @@ def handle_loader():
                         p = mp.Process(target=send_file_to_redis, args=(mediaBugTarget, redisChannel,))
                         p.start()
                         loader[mediaBugTarget] = p
+                        print("*"*80)
                         loaderStartMsg = {
                                           "Event": "LOADER_START",
                                           "Caller-Destination-Number": callerDestinationNumber,
