@@ -17,9 +17,12 @@ asr_channel = 'asr_channel'
 app = Jaspion(host='127.0.0.1', port=8021, password=os.getenv("FREESWITCH_PASSWORD"))
 red = redis.Redis(host=server, port=6379, password=os.getenv("REDIS_PASSWORD"))
 
-logging.basicConfig()
-logger = logging.getLogger('ESL-Bridge')
-logger.setLevel(logging.DEBUG)
+logger = logging.basicConfig(
+    filename="esl_to_redis.log",
+    level=logging.DEBUG,
+    format='%(asctime)s %(levelname)s %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S',
+)
 
 
 @app.handle('conference::maintenance')
