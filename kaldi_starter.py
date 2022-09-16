@@ -39,7 +39,7 @@ def wait_for_channel(server, port, channel):
         try:
             if message:
                 message = json.loads(message['data'].decode('UTF-8'))
-                print(print(json.dumps(message, indent=2)))
+                print(json.dumps(message, indent=2))
                 callerUsername = message['Caller-Username']
                 language = message['Language']
                 audioChannel = message['Audio-Channel']
