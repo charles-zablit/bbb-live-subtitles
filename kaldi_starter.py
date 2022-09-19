@@ -22,11 +22,11 @@ def start_kaldi(server, input, output, controlChannel, speaker, language):
     if language == 'German':
         model = 'kaldi_tuda_de_nnet3_chain2.yaml'
         onlineConf = "kaldi_tuda_de_nnet3_chain2.online.conf"
-        kaldiDir = f'docker exec kamose asr -e -t -m -1 -y models/{model} -o models/{onlineConf} --redis-server={server} --redis-audio={input} --redis-channel={output} --redis-control={controlChannel} -s="{speaker}" -fpc 190'
+        kaldiDir = f'docker exec kamose asr -e -t -m 1 -y models/{model} -o models/{onlineConf} --redis-server={server} --redis-audio={input} --redis-channel={output} --redis-control={controlChannel} -s="{speaker}" -fpc 190'
     else:
         onlineConf = 'en_160k_nnet3chain_tdnn1f_2048_sp_bi/conf/online.conf'
         model = 'en_160k_nnet3chain_tdnn1f_2048_sp_bi.yaml'
-        kaldiDir = f'docker exec kamose asr -e -t -m -1 -o models/{model} -y models/{onlineConf} --redis-server={server} --redis-audio={input} --redis-channel={output} --redis-control={controlChannel} -s="{speaker}" -fpc 190'
+        kaldiDir = f'docker exec kamose asr -e -t -m 1 -o models/{model} -y models/{onlineConf} --redis-server={server} --redis-audio={input} --redis-channel={output} --redis-control={controlChannel} -s="{speaker}" -fpc 190'
     os.system(kaldiDir)
 
 
